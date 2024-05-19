@@ -130,14 +130,15 @@ public class PaymentService {
             vnp_Params.put("vnp_Command", vnp_Command);
             vnp_Params.put("vnp_TmnCode", vnp_TmnCode);
             vnp_Params.put("vnp_Amount",
-                    String.valueOf(order.getTotal_price()));
+                    String.valueOf(order.getTotal_price()*100));
             vnp_Params.put("vnp_CurrCode", "VND");
 
             vnp_Params.put("vnp_TxnRef", vnp_TxnRef);
-            vnp_Params.put("vnp_OrderInfo", "Thanh toan don hang:" + vnp_TxnRef);
-
+            vnp_Params.put("vnp_OrderInfo",
+                    "Thanh toan don hang:" + order.getId());
 
             vnp_Params.put("vnp_ReturnUrl", vnp_ReturnUrl);
+            vnp_Params.put("vnp_Locate","Vn");
             //vnp_Params.put("vnp_IpAddr", vnp_IpAddr);
 
             Calendar         cld            = Calendar.getInstance(TimeZone.getTimeZone("Etc/GMT+7"));
