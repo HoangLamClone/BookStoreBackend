@@ -33,4 +33,8 @@ public class PaymentController {
     public ResponseEntity<APIResponse<?>> verifyPayment(@RequestParam int id) {
         return ResponseEntity.ok(APIResponse.builder().code(200).message("OK").result(paymentService.verifyPayment(id)).build());
     }
+    @PostMapping("/payfor")
+    public ResponseEntity<APIResponse<?>> payFor(@RequestParam int order_id){
+        return ResponseEntity.ok(APIResponse.builder().message("OK").code(200).result(paymentService.payForOrder(order_id)).build());
+    }
 }
