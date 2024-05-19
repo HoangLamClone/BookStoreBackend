@@ -115,7 +115,7 @@ public class PaymentService {
             throw new ApplicationException(ErrorCodes.CANNOT_DELETE);
         }
     }
-    public PaymentResponse payForOrder(int order_id){
+    public PaymentResponse payForOrder(int order_id,String vnp_IpAddress){
         try{
             if(!orderRepository.existsById(order_id)){
                 throw new ApplicationException(ErrorCodes.OBJECT_NOT_EXIST);
@@ -139,7 +139,7 @@ public class PaymentService {
             vnp_Params.put("vnp_BankCode",vnp_BankCode);
             vnp_Params.put("vnp_ReturnUrl", vnp_ReturnUrl);
             vnp_Params.put("vnp_Locate","Vn");
-            //vnp_Params.put("vnp_IpAddr", vnp_IpAddr);
+            vnp_Params.put("vnp_IpAddr", vnp_IpAddress);
 
             Calendar         cld            = Calendar.getInstance(TimeZone.getTimeZone("Etc/GMT+7"));
             SimpleDateFormat formatter      = new SimpleDateFormat("yyyyMMddHHmmss");
