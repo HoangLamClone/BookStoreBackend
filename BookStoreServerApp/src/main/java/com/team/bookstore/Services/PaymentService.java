@@ -16,6 +16,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import java.net.URLEncoder;
@@ -177,7 +178,12 @@ public class PaymentService {
                             hashData.toString());
             queryUrl += "&vnp_SecureHash=" + vnp_SecureHash;
             String paymentUrl = VNPAYConfig.vnp_PayUrl + "?" + queryUrl;
-            return verifyPayment(payment_id);
+            Payment payment =
+                    paymentRepository.findPaymentById(order.getPayment().getId());
+            PaymentResponse paymentResponse =
+                    paymentMapper.toPaymentResponse(payment);
+            paymentResponse.setPaymentURL(paymentUrl);
+            return paymentResponse;
         }catch(Exception e){
             log.info(e);
             throw new ApplicationException(ErrorCodes.CANNOT_VERIFY);
