@@ -80,6 +80,3 @@ public class SecurityConfig{
     }
 }
 
-//draftSTforDeploy
-//draft
-//darft2
