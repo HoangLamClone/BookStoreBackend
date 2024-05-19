@@ -19,18 +19,19 @@ public interface FeedbackMapper {
     @Mapping(target = "customer_information",ignore = true)
     @Mapping(target = "book",source = "book_id",qualifiedByName = "toBook")
     Feedback toFeedback(FeedBackRequest feedBackRequest);
-    @Named("toCustomer_information")
-    default CustomerInformation toCustomer_information(int customer_id){
-        CustomerInformation customerInformation = new CustomerInformation();
-        customerInformation.setId(customer_id);
-        return customerInformation;
-    }
     @Named("toBook")
     default Book toBook(int book_id){
         Book book = new Book();
         book.setId(book_id);
         return book;
     }
+    @Named("toCustomer_information")
+    default CustomerInformation toCustomer_information(int customer_id){
+        CustomerInformation customerInformation = new CustomerInformation();
+        customerInformation.setId(customer_id);
+        return customerInformation;
+    }
+
     @Mapping(target = "customer_id", source = "customer_information",
             qualifiedByName = "toCustomer_id")
     @Mapping(target = "fullname",source = "customer_information",

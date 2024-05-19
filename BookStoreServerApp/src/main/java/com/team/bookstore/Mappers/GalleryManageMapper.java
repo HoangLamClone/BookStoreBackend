@@ -24,14 +24,15 @@ public interface GalleryManageMapper {
     @Mapping(target = "book",source = "book_id",qualifiedByName = "toBook")
     @Mapping(target = "thumbnail",ignore = true)
     GalleryManage toGalleryManage(GalleryManageRequest galleryManageRequest);
-    @Mapping(target="book_id",source="book",qualifiedByName = "toBook_id")
-    GalleryManageResponse toGalleryManageResponse(GalleryManage galleryManage);
     @Named("toBook")
     default Book toBook(int book_id){
         Book book = new Book();
         book.setId(book_id);
         return book;
     }
+
+    @Mapping(target="book_id",source="book",qualifiedByName = "toBook_id")
+    GalleryManageResponse toGalleryManageResponse(GalleryManage galleryManage);
 
     @Named("toBook_id")
     default int toBook_id(Book book){
