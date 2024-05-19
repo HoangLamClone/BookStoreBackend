@@ -22,10 +22,6 @@ import org.springframework.context.annotation.Configuration;
                         url = "null"
                 ),
                 termsOfService = "Terms of service"
-        ),
-        servers = @Server(
-                description = "Local SV",
-                url = "http://localhost:8030/BookStore"
         )
 )
 @SecurityScheme(
