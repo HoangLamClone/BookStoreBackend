@@ -136,7 +136,7 @@ public class PaymentService {
             vnp_Params.put("vnp_TxnRef", vnp_TxnRef);
             vnp_Params.put("vnp_OrderInfo",
                     "Thanh toan don hang:" + order.getId());
-
+            vnp_Params.put("vnp_BankCode",vnp_BankCode);
             vnp_Params.put("vnp_ReturnUrl", vnp_ReturnUrl);
             vnp_Params.put("vnp_Locate","Vn");
             //vnp_Params.put("vnp_IpAddr", vnp_IpAddr);
