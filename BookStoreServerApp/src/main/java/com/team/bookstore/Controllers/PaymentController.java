@@ -35,26 +35,8 @@ public class PaymentController {
         return ResponseEntity.ok(APIResponse.builder().code(200).message("OK").result(paymentService.verifyPayment(id)).build());
     }
     @PostMapping("/payfor")
-    public ResponseEntity<APIResponse<?>> payFor(@RequestParam int order_id, HttpServletRequest request){
-        return ResponseEntity.ok(APIResponse.builder().message("OK").code(200).result(paymentService.payForOrder(order_id,getClientIpAddress(request))).build());
+    public ResponseEntity<APIResponse<?>> payFor(@RequestParam int order_id){
+        return ResponseEntity.ok(APIResponse.builder().message("OK").code(200).result(paymentService.payForOrder(order_id)).build());
     }
-    private String getClientIpAddress(HttpServletRequest request) {
-        String ipAddress = request.getHeader("X-Forwarded-For");
-        if (ipAddress == null || ipAddress.isEmpty() || "unknown".equalsIgnoreCase(ipAddress)) {
-            ipAddress = request.getHeader("Proxy-Client-IP");
-        }
-        if (ipAddress == null || ipAddress.isEmpty() || "unknown".equalsIgnoreCase(ipAddress)) {
-            ipAddress = request.getHeader("WL-Proxy-Client-IP");
-        }
-        if (ipAddress == null || ipAddress.isEmpty() || "unknown".equalsIgnoreCase(ipAddress)) {
-            ipAddress = request.getHeader("HTTP_CLIENT_IP");
-        }
-        if (ipAddress == null || ipAddress.isEmpty() || "unknown".equalsIgnoreCase(ipAddress)) {
-            ipAddress = request.getHeader("HTTP_X_FORWARDED_FOR");
-        }
-        if (ipAddress == null || ipAddress.isEmpty() || "unknown".equalsIgnoreCase(ipAddress)) {
-            ipAddress = request.getRemoteAddr();
-        }
-        return ipAddress;
-    }
+
 }
