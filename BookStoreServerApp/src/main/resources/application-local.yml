@@ -1,0 +1,11 @@
+server:
+  port: 8030
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/BookStore4
+    username: postgres
+    password: 21062004
+
+
+

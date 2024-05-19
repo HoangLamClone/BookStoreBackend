@@ -1,0 +1,25 @@
+server:
+  servlet:
+    context-path: /BookStore
+  port: 8010
+spring:
+  jpa:
+    properties:
+      hibernate:
+        ddl-auto: update
+        show_sql: true
+    generate-ddl: true
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://tiny.db.elephantsql.com:5432/asnqldlc
+    username: asnqldlc
+    password: 96QqI1o1HyL9noDa9jhEBWGiUimlJGKX
+  banner:
+    location: banner.txt
+  mvc:
+    path match:
+      matching-strategy: ant_path_matcher
+jwt:
+  signerKey: "IY8j5sGpRsZbvezfml0pd+JL5OzhmPuiaz1nEw1KxQA="
+  valid-duration: 3600 # in second
+  refreshable-duration: 36000 # in seconds

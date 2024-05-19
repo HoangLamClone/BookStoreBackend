@@ -1,0 +1,11 @@
+server:
+  port: 8020
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://rain.db.elephantsql.com:5432/rgnwyock
+    username: rgnwyock
+    password: BPaFVucfR-YP7WdoZKGYubJj8KxCU80N
+
+
+
