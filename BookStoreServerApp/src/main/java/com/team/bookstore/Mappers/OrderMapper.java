@@ -29,10 +29,8 @@ public interface OrderMapper {
     @Mapping(target = "total_price",ignore = true)
     @Mapping(target = "order_detail",source = "order_details",
             qualifiedByName = "toOrderDetail")
-    @Mapping(target = "payment",source = "method_payment",qualifiedByName =
-            "toPayment")
+    @Mapping(target = "payment",ignore = true)
     @Mapping(target = "customerId",ignore = true)
-
     Order toOrder(OrderRequest orderRequest);
     @Named("toOrderDetail")
     default Set<Order_Detail> toOrderDetail(Set<OrderDetailRequest> order_details){

@@ -206,6 +206,7 @@ public class PaymentService {
             Payment payment =
                     paymentRepository.findPaymentById(order.getPayment().getId());
             payment.setVnpaycode(Integer.parseInt(vnp_TxnRef));
+            payment.setMethod_payment(method);
             PaymentResponse paymentResponse =
                     paymentMapper.toPaymentResponse(payment);
             paymentResponse.setPaymentURL(paymentUrl);

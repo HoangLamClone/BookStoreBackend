@@ -24,9 +24,5 @@ public class OrderRequest {
     @NotNull
     String address;
     Set<OrderDetailRequest> order_details;
-    @NotNull
-    @Max(2)
-    @Min(0)
-    int method_payment;
 }
 
