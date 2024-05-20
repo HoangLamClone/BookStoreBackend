@@ -186,7 +186,6 @@ public class OrderService {
         order.setStatus_trans(0);
         Payment payment = new Payment();
         log.info(order.getPayment());
-        payment.setMethod_payment(order.getPayment().getMethod_payment());
         payment.setPayment_status(false);
         payment.setCustomerId(order.getCustomerId());
         payment.setOrder(order);
