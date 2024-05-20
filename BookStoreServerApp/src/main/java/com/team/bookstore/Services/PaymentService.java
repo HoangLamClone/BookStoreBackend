@@ -153,7 +153,8 @@ public class PaymentService {
                 vnp_Params.put("vnp_BankCode", bankCode);
             }
             vnp_Params.put("vnp_TxnRef", vnp_TxnRef);
-            vnp_Params.put("vnp_OrderInfo", String.valueOf(order.getId()));
+            vnp_Params.put("vnp_OrderInfo",
+                    "Thanh toan cho don hang: " + String.valueOf(order.getId()));
             vnp_Params.put("vnp_OrderType", orderType);
             String locate = "vn";
             if (locate != null && !locate.isEmpty()) {
@@ -205,7 +206,8 @@ public class PaymentService {
             String paymentUrl = VNPAYConfig.vnp_PayUrl + "?" + queryUrl;
             Payment payment =
                     paymentRepository.findPaymentById(order.getPayment().getId());
-            payment.setVnpaycode(Integer.parseInt(vnp_TxnRef));
+            payment.setVnpaycode(Integer.valueOf(vnp_TxnRef));
+            log.info(payment.getVnpaycode());
             payment.setMethod_payment(method);
             PaymentResponse paymentResponse =
                     paymentMapper.toPaymentResponse(payment);

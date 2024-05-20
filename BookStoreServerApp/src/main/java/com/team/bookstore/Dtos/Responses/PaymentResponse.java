@@ -17,7 +17,7 @@ public class PaymentResponse {
     int  order_id;
     int  method_payment;
     boolean  payment_status;
-    int vnpaycode;
+    Integer vnpaycode;
     Date createAt;
     String  paymentURL;
 }
