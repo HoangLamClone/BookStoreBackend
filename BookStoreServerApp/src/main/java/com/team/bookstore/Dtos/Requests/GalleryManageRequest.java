@@ -15,7 +15,5 @@ import java.util.Set;
 public class GalleryManageRequest {
     @NotNull
     int book_id;
-    @NotNull
-    String thumbnail;
     String description;
 }

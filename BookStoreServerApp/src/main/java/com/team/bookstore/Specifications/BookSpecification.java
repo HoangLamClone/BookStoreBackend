@@ -19,7 +19,7 @@ public class BookSpecification {
                     return criteriaBuilder.conjunction();
                 }
                 String likeKeyword = "%" + keyword.toLowerCase() + "%";
-                return criteriaBuilder.or(
+                return criteriaBuilder.and(criteriaBuilder.or(
                         criteriaBuilder.like(root.get("id").as(String.class)
                         , likeKeyword.toLowerCase()),
                         criteriaBuilder.like(criteriaBuilder.lower(root.get(
@@ -27,7 +27,30 @@ public class BookSpecification {
                                 likeKeyword.toLowerCase()),
                         criteriaBuilder.like(criteriaBuilder.lower(root.get(
                                 "description")),
-                                likeKeyword.toLowerCase())
+                                likeKeyword.toLowerCase()),
+                        criteriaBuilder.equal(root.get("isebook").as(String.class),"false"))
+                );
+            }
+        };
+    }
+    public static Specification<Book> GenerateEBookKeywordSpec(@NotNull String keyword){
+        return new Specification<Book>() {
+            @Override
+            public Predicate toPredicate(Root<Book> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
+                if (keyword.isEmpty()) {
+                    return criteriaBuilder.conjunction();
+                }
+                String likeKeyword = "%" + keyword.toLowerCase() + "%";
+                return criteriaBuilder.and(criteriaBuilder.or(
+                        criteriaBuilder.like(root.get("id").as(String.class)
+                                , likeKeyword.toLowerCase()),
+                        criteriaBuilder.like(criteriaBuilder.lower(root.get(
+                                        "title")),
+                                likeKeyword.toLowerCase()),
+                        criteriaBuilder.like(criteriaBuilder.lower(root.get(
+                                        "description")),
+                                likeKeyword.toLowerCase()),
+                        criteriaBuilder.equal(root.get("isebook").as(String.class),"true"))
                 );
             }
         };

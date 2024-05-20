@@ -23,6 +23,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.team.bookstore.Specifications.BookSpecification.GenerateEBookKeywordSpec;
 import static com.team.bookstore.Specifications.Customer_BookSpecification.CreateCustomerBookByCustomerIDSpec;
 
 @Service
@@ -111,6 +112,15 @@ public class EBookService {
         }catch (Exception e){
             log.info(e);
             throw new ApplicationException(ErrorCodes.UN_AUTHORISED);
+        }
+    }
+    public List<BookResponse> findEBookByKeyword(String keyword){
+        try{
+            Specification<Book> spec = GenerateEBookKeywordSpec(keyword);
+            return bookRepository.findAll(spec).stream().map(bookMapper::toBookResponse).collect(Collectors.toList());
+        }catch (Exception e){
+            log.info(e);
+            throw new ApplicationException(ErrorCodes.NOT_FOUND);
         }
     }
 }

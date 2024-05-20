@@ -15,7 +15,6 @@ public class CategoryRequest {
     @NotNull
     @Size(max = 50)
     String name;
-    String avatar;
     @Max(10)
     short hot;
 }

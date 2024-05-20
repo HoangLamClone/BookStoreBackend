@@ -83,12 +83,13 @@ public class PaymentService {
         }
     }
     @Secured("ROLE_ADMIN")
-    public PaymentResponse verifyPayment(int id){
+    public PaymentResponse verifyPayment(String vnp_TxnRef){
         try{
-            if(!paymentRepository.existsById(id)){
+            Payment existPayment =
+                    paymentRepository.findPaymentByVnpTxnRefMatches(vnp_TxnRef);
+            if(existPayment==null){
                 throw new ApplicationException(ErrorCodes.OBJECT_NOT_EXIST);
             }
-            Payment existPayment = paymentRepository.findPaymentById(id);
             if(existPayment.isPayment_status()){
                 return paymentMapper.toPaymentResponse(paymentRepository.save(existPayment));
             }
@@ -115,8 +116,11 @@ public class PaymentService {
             throw new ApplicationException(ErrorCodes.CANNOT_DELETE);
         }
     }
-    public PaymentResponse payForOrder(int order_id){
+    public PaymentResponse payForOrder(int order_id, short method){
         try{
+            if(method<1 || method >3){
+                throw new ApplicationException(ErrorCodes.INVALID_OBJECT);
+            }
             if(!orderRepository.existsById(order_id)){
                 throw new ApplicationException(ErrorCodes.OBJECT_NOT_EXIST);
             }
@@ -125,8 +129,13 @@ public class PaymentService {
             String vnp_Version = VNPAYConfig.vnp_Version;
             String vnp_Command = VNPAYConfig.vnp_Command;
             String orderType = VNPAYConfig.orderType;
-            long amount = order.getTotal_price()* 100L;
-            String bankCode = "VNBANK";
+            long amount     = order.getTotal_price()* 100L;
+            String bankCode = switch (method) {
+                case 1 -> "VNPAYQR";
+                case 2 -> "VNBANK";
+                case 3 -> "INTCARD";
+                default -> null;
+            };
 
             String vnp_TxnRef = VNPAYConfig.getRandomNumber(8);
             String vnp_IpAddr = "192.0.0.1";
@@ -144,7 +153,7 @@ public class PaymentService {
                 vnp_Params.put("vnp_BankCode", bankCode);
             }
             vnp_Params.put("vnp_TxnRef", vnp_TxnRef);
-            vnp_Params.put("vnp_OrderInfo", "Thanh toan don hang:" + order.getId());
+            vnp_Params.put("vnp_OrderInfo", String.valueOf(order.getId()));
             vnp_Params.put("vnp_OrderType", orderType);
             String locate = "vn";
             if (locate != null && !locate.isEmpty()) {
@@ -196,6 +205,7 @@ public class PaymentService {
             String paymentUrl = VNPAYConfig.vnp_PayUrl + "?" + queryUrl;
             Payment payment =
                     paymentRepository.findPaymentById(order.getPayment().getId());
+            payment.setVnpTxnRef(vnp_TxnRef);
             PaymentResponse paymentResponse =
                     paymentMapper.toPaymentResponse(payment);
             paymentResponse.setPaymentURL(paymentUrl);

@@ -13,4 +13,5 @@ public interface PaymentRepository extends JpaRepository<Payment, Integer> {
     List<Payment> findPaymentsByCustomerId(int customer_id);
     boolean existsById(int id);
     List<Payment> findAll(Specification<Payment> spec);
+    Payment findPaymentByVnpTxnRefMatches(String vnp_txnRef);
 }
