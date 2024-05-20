@@ -155,9 +155,10 @@ public class PaymentService {
             vnp_Params.put("vnp_ReturnUrl", VNPAYConfig.vnp_ReturnUrl);
             vnp_Params.put("vnp_IpAddr", vnp_IpAddr);
 
-            Calendar cld = Calendar.getInstance(TimeZone.getTimeZone("GMT+14"));
+            Calendar cld = Calendar.getInstance(TimeZone.getTimeZone("GMT+7"));
             SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
             String vnp_CreateDate = formatter.format(cld.getTime());
+            cld.add(Calendar.HOUR,7);
             vnp_Params.put("vnp_CreateDate", vnp_CreateDate);
 
             cld.add(Calendar.MINUTE, 15);
