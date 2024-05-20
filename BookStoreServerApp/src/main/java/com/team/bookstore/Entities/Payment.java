@@ -21,7 +21,7 @@ public class Payment extends Auditable{
     @Column(name = "customer_id")
     int customerId;
     int method_payment;
-    String vnpTxnRef;
+    int vnpaycode;
     boolean payment_status;
     @OneToOne
     @JoinColumn(name = "fk_order_id",referencedColumnName = "order_id")

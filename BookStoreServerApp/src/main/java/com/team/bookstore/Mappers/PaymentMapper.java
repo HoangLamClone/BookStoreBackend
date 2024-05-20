@@ -13,7 +13,6 @@ public interface PaymentMapper {
     @Mapping(target = "order_id",source = "order",qualifiedByName =
             "toOrder_id")
     @Mapping(target = "paymentURL",ignore = true)
-    @Mapping(target = "vnpTxnRef",ignore = true)
     PaymentResponse toPaymentResponse(Payment payment);
     @Named("toOrder_id")
     default int toOrder_id(Order order){

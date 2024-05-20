@@ -86,7 +86,7 @@ public class PaymentService {
     public PaymentResponse verifyPayment(String vnp_TxnRef){
         try{
             Payment existPayment =
-                    paymentRepository.findPaymentByVnpTxnRefMatches(vnp_TxnRef);
+                    paymentRepository.findPaymentByVnpaycode(Integer.parseInt(vnp_TxnRef));
             if(existPayment==null){
                 throw new ApplicationException(ErrorCodes.OBJECT_NOT_EXIST);
             }
@@ -205,7 +205,7 @@ public class PaymentService {
             String paymentUrl = VNPAYConfig.vnp_PayUrl + "?" + queryUrl;
             Payment payment =
                     paymentRepository.findPaymentById(order.getPayment().getId());
-            payment.setVnpTxnRef(vnp_TxnRef);
+            payment.setVnpaycode(Integer.parseInt(vnp_TxnRef));
             PaymentResponse paymentResponse =
                     paymentMapper.toPaymentResponse(payment);
             paymentResponse.setPaymentURL(paymentUrl);
