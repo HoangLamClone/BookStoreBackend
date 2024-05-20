@@ -122,9 +122,9 @@ public class PaymentService {
             }
             Order order = orderRepository.findOrderById(order_id);
             int payment_id =order.getId();
-            String vnp_Version = "2.1.0";
-            String vnp_Command = "pay";
-            String orderType = "other";
+            String vnp_Version = VNPAYConfig.vnp_Version;
+            String vnp_Command = VNPAYConfig.vnp_Command;
+            String orderType = VNPAYConfig.orderType;
             long amount = order.getTotal_price()* 100L;
             String bankCode = "VNBANK";
 
