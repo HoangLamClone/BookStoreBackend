@@ -122,28 +122,42 @@ public class PaymentService {
             }
             Order order = orderRepository.findOrderById(order_id);
             int payment_id =order.getId();
+            String vnp_Version = "2.1.0";
+            String vnp_Command = "pay";
+            String orderType = "other";
+            long amount = order.getTotal_price()* 100L;
+            String bankCode = "VNBANK";
+
             String vnp_TxnRef = VNPAYConfig.getRandomNumber(8);
+            String vnp_IpAddr = "192.0.0.1";
+
             String vnp_TmnCode = VNPAYConfig.vnp_TmnCode;
 
             Map<String, String> vnp_Params = new HashMap<>();
             vnp_Params.put("vnp_Version", vnp_Version);
             vnp_Params.put("vnp_Command", vnp_Command);
             vnp_Params.put("vnp_TmnCode", vnp_TmnCode);
-            vnp_Params.put("vnp_Amount",
-                    String.valueOf(order.getTotal_price()*100));
+            vnp_Params.put("vnp_Amount", String.valueOf(amount));
             vnp_Params.put("vnp_CurrCode", "VND");
 
+            if (bankCode != null && !bankCode.isEmpty()) {
+                vnp_Params.put("vnp_BankCode", bankCode);
+            }
             vnp_Params.put("vnp_TxnRef", vnp_TxnRef);
-            vnp_Params.put("vnp_OrderInfo",
-                    "Thanh toan don hang:" + order.getId());
-            vnp_Params.put("vnp_BankCode",vnp_BankCode);
-            vnp_Params.put("vnp_ReturnUrl", vnp_ReturnUrl);
-            vnp_Params.put("vnp_Locate","Vn");
-            vnp_Params.put("vnp_IpAddr", "172.19.200.247");
+            vnp_Params.put("vnp_OrderInfo", "Thanh toan don hang:" + order.getId());
+            vnp_Params.put("vnp_OrderType", orderType);
+            String locate = "vn";
+            if (locate != null && !locate.isEmpty()) {
+                vnp_Params.put("vnp_Locale", locate);
+            } else {
+                vnp_Params.put("vnp_Locale", "vn");
+            }
+            vnp_Params.put("vnp_ReturnUrl", VNPAYConfig.vnp_ReturnUrl);
+            vnp_Params.put("vnp_IpAddr", vnp_IpAddr);
 
-            Calendar         cld            = Calendar.getInstance(TimeZone.getTimeZone("Etc/GMT+7"));
-            SimpleDateFormat formatter      = new SimpleDateFormat("yyyyMMddHHmmss");
-            String           vnp_CreateDate = formatter.format(cld.getTime());
+            Calendar cld = Calendar.getInstance(TimeZone.getTimeZone("Etc/GMT+7"));
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
+            String vnp_CreateDate = formatter.format(cld.getTime());
             vnp_Params.put("vnp_CreateDate", vnp_CreateDate);
 
             cld.add(Calendar.MINUTE, 15);
@@ -158,15 +172,15 @@ public class PaymentService {
             while (itr.hasNext()) {
                 String fieldName = (String) itr.next();
                 String fieldValue = (String) vnp_Params.get(fieldName);
-                if ((fieldValue != null) && (!fieldValue.isEmpty())) {
+                if ((fieldValue != null) && (fieldValue.length() > 0)) {
                     //Build hash data
                     hashData.append(fieldName);
                     hashData.append('=');
-                    hashData.append(URLEncoder.encode(fieldValue, StandardCharsets.US_ASCII));
+                    hashData.append(URLEncoder.encode(fieldValue, StandardCharsets.US_ASCII.toString()));
                     //Build query
-                    query.append(URLEncoder.encode(fieldName, StandardCharsets.US_ASCII));
+                    query.append(URLEncoder.encode(fieldName, StandardCharsets.US_ASCII.toString()));
                     query.append('=');
-                    query.append(URLEncoder.encode(fieldValue, StandardCharsets.US_ASCII));
+                    query.append(URLEncoder.encode(fieldValue, StandardCharsets.US_ASCII.toString()));
                     if (itr.hasNext()) {
                         query.append('&');
                         hashData.append('&');
