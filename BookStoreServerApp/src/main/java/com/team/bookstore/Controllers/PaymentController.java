@@ -47,17 +47,18 @@ public class PaymentController {
                               @RequestParam String vnp_TxnRef, Model model){
         paymentService.verifyPayment(vnp_TxnRef);
         model.addAttribute("vnp_TxnRef",vnp_TxnRef);
-        model.addAttribute("vnp_Amount",request.getAttribute("vnp_Amount"));
-        model.addAttribute("vnp_OrderInfo",request.getAttribute(
+        model.addAttribute("vnp_Amount",request.getParameter("vnp_Amount"));
+        model.addAttribute("vnp_OrderInfo",request.getParameter(
                 "vnp_OrderInfo"));
-        model.addAttribute("vnp_ResponseCode",request.getAttribute(
+        model.addAttribute("vnp_ResponseCode",request.getParameter(
                 "vnp_ResponseCode"));
-        model.addAttribute("vnp_TransactionNo",request.getAttribute(
+        model.addAttribute("vnp_TransactionNo",request.getParameter(
                 "vnp_TransactionNo"));
-        model.addAttribute("vnp_BankCode",request.getAttribute("vnp_BankCode"));
-        model.addAttribute("vnp_PayDate",request.getAttribute("vnp_PayDate"));
-        model.addAttribute("vnp_TransactionStatus",request.getAttribute("vnp_TransactionStatus"));
-        return "vnpay_result";
+        model.addAttribute("vnp_BankCode",request.getParameter("vnp_BankCode"));
+        model.addAttribute("vnp_PayDate",request.getParameter("vnp_PayDate"));
+        model.addAttribute("vnp_TransactionStatus",request.getParameter(
+                "vnp_TransactionStatus"));
+        return "vnpay_return";
     }
 
 }
