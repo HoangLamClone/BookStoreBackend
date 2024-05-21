@@ -1,6 +1,7 @@
 <%@page import="java.net.URLEncoder"%>
 <%@page import="java.nio.charset.StandardCharsets"%>
 <%@page import="com.team.bookstore.Configs.VNPAYConfig"%>
+<%@page import="com.team.bookstore.Services.PaymentService"%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
@@ -11,6 +12,7 @@
 <%@page import="java.util.Enumeration"%>
 <%@page import="java.util.Map"%>
 <%@page import="java.util.HashMap"%>
+<%@ page import="org.springframework.beans.factory.annotation.Autowired" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -48,7 +50,8 @@
                 fields.remove("vnp_SecureHash");
             }
             String signValue = VNPAYConfig.hashAllFields(fields);
-
+            PaymentService paymentService = new PaymentService();
+            paymentService.verifyPayment(request.getParameter("vnp_TxnRef"));
         %>
         <!--Begin display -->
         <div class="container">

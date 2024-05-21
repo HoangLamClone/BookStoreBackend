@@ -45,7 +45,8 @@ dependencies {
     //implementation group: 'io.springfox', name: 'springfox-boot-starter', version: '3.0.0'
     // https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-starter-webmvc-ui
     implementation group: 'org.springdoc', name: 'springdoc-openapi-starter-webmvc-ui', version: '2.5.0'
-
+    //tomcat embed
+    implementation group: 'org.apache.tomcat.embed', name: 'tomcat-embed-jasper', version: '11.0.0-M20'
 
 }
 
