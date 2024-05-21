@@ -27,6 +27,6 @@ public class Auditable{
     @Column(name = "create_by" , nullable = false,updatable = false)
     String createBy;
     @LastModifiedBy
-    @Column(name = "updateBy")
+    @Column(name = "update_by")
     String updateBy;
 }

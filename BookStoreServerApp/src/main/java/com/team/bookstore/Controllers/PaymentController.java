@@ -42,8 +42,12 @@ public class PaymentController {
         return ResponseEntity.ok(APIResponse.builder().message("OK").code(200).result(paymentService.payForOrder(order_id,method)).build());
     }
     @GetMapping("/vnpay-result")
-    public ResponseEntity<APIResponse<?>> vnpayResult(HttpServletRequest request, HttpServletResponse response,@RequestParam String vnp_TxnRef){
-        return ResponseEntity.ok(APIResponse.builder().code(200).message("OK").result(paymentService.verifyPayment(vnp_TxnRef)).build());
+    public String vnpayResult(HttpServletRequest request,
+                         HttpServletResponse response,@RequestParam String vnp_TxnRef){
+        paymentService.verifyPayment(vnp_TxnRef);
+        return "redirect:https://bookstorebackend-production\" +\n" +
+                "            \"-7f54.up.railway" +
+                ".app/BookStore/VNPAYWeb/vnpay_return.jsp";
     }
 
 }
