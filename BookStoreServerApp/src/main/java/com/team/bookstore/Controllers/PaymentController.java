@@ -43,7 +43,6 @@ public class PaymentController {
     }
     @GetMapping("/vnpay-result")
     public String vnpayResult(HttpServletRequest request,
-                                    HttpServletResponse response,
                               @RequestParam String vnp_TxnRef, Model model){
         paymentService.verifyPayment(vnp_TxnRef);
         model.addAttribute("vnp_TxnRef",vnp_TxnRef);
