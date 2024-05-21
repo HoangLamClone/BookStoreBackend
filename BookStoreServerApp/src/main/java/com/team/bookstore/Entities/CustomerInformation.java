@@ -28,7 +28,7 @@ public class CustomerInformation extends Auditable{
     byte[] avatar;
     boolean isvip;
     @JsonManagedReference("customer")
-    @OneToMany(mappedBy = "customer_information",fetch = FetchType.EAGER,cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "customer_information",cascade = CascadeType.REMOVE)
     Set<Customer_Book> customer_book = new HashSet<>();
     @OneToOne
     @JoinColumn(name = "customer_id")
