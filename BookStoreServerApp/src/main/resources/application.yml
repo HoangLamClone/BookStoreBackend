@@ -16,12 +16,6 @@ spring:
     password: 96QqI1o1HyL9noDa9jhEBWGiUimlJGKX
   banner:
     location: banner.txt
-  mvc:
-    path match:
-      matching-strategy: ant_path_matcher
-    view:
-      prefix: /WEB-INF/jsp/
-      suffix: .jsp
   thymeleaf:
     prefix: classpath:/templates/
     suffix: .html
