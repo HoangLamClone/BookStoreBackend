@@ -29,7 +29,8 @@ public enum ErrorCodes {
     CANNOT_VERIFY(25,"Cannot verify this object!",
             HttpStatus.INTERNAL_SERVER_ERROR),
     IS_EXPIRED(26,"This object is expired!",HttpStatus.INTERNAL_SERVER_ERROR),
-    NULL_FIELD(27,"A field of your object is null!",HttpStatus.BAD_REQUEST)
+    NULL_FIELD(27,"A field of your object is null!",HttpStatus.BAD_REQUEST),
+    PURCHASED(28,"Has been purchased!",HttpStatus.BAD_REQUEST)
     ;
     final int code;
     final String message;

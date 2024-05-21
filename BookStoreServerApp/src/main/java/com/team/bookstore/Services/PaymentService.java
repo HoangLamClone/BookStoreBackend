@@ -207,9 +207,11 @@ public class PaymentService {
             Payment payment =
                     paymentRepository.findPaymentById(order.getPayment().getId());
             payment.setVnpaycode(Integer.valueOf(vnp_TxnRef));
-            log.info(payment.getVnpaycode());
             payment.setMethod_payment(method);
             paymentRepository.save(payment);
+            if(payment.isPayment_status()){
+                throw new ApplicationException(ErrorCodes.PURCHASED);
+            }
             PaymentResponse paymentResponse =
                     paymentMapper.toPaymentResponse(payment);
             paymentResponse.setPaymentURL(paymentUrl);

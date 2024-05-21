@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.view.RedirectView;
 
 @RestController
 @RequestMapping("/payment")
@@ -42,12 +43,12 @@ public class PaymentController {
         return ResponseEntity.ok(APIResponse.builder().message("OK").code(200).result(paymentService.payForOrder(order_id,method)).build());
     }
     @GetMapping("/vnpay-result")
-    public String vnpayResult(HttpServletRequest request,
-                         HttpServletResponse response,@RequestParam String vnp_TxnRef){
+    public RedirectView vnpayResult(HttpServletRequest request,
+                                    HttpServletResponse response, @RequestParam String vnp_TxnRef){
         paymentService.verifyPayment(vnp_TxnRef);
-        return "redirect:https://bookstorebackend-production\" +\n" +
+        return new RedirectView(":https://bookstorebackend-production\" +\n" +
                 "            \"-7f54.up.railway" +
-                ".app/BookStore/VNPAYWeb/vnpay_return.jsp";
+                ".app/BookStore/VNPAYWeb/vnpay_return.jsp");
     }
 
 }
