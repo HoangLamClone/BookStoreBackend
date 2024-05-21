@@ -1,8 +1,6 @@
 package com.team.bookstore.Controllers;
 
 import com.team.bookstore.Dtos.Responses.APIResponse;
-import com.team.bookstore.Dtos.Responses.PaymentResponse;
-import com.team.bookstore.Entities.Payment;
 import com.team.bookstore.Mappers.PaymentMapper;
 import com.team.bookstore.Services.PaymentService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -11,11 +9,11 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
-
-@RestController
+@Controller
 @RequestMapping("/payment")
 @SecurityRequirement(name = "bearerAuth")
 public class PaymentController {
@@ -44,10 +42,22 @@ public class PaymentController {
         return ResponseEntity.ok(APIResponse.builder().message("OK").code(200).result(paymentService.payForOrder(order_id,method)).build());
     }
     @GetMapping("/vnpay-result")
-    public ModelAndView vnpayResult(HttpServletRequest request,
-                                    HttpServletResponse response, @RequestParam String vnp_TxnRef){
+    public String vnpayResult(HttpServletRequest request,
+                                    HttpServletResponse response,
+                              @RequestParam String vnp_TxnRef, Model model){
         paymentService.verifyPayment(vnp_TxnRef);
-        return new ModelAndView("vnpay_return");
+        model.addAttribute("vnp_TxnRef",vnp_TxnRef);
+        model.addAttribute("vnp_Amount",request.getAttribute("vnp_Amount"));
+        model.addAttribute("vnp_OrderInfo",request.getAttribute(
+                "vnp_OrderInfo"));
+        model.addAttribute("vnp_ResponseCode",request.getAttribute(
+                "vnp_ResponseCode"));
+        model.addAttribute("vnp_TransactionNo",request.getAttribute(
+                "vnp_TransactionNo"));
+        model.addAttribute("vnp_BankCode",request.getAttribute("vnp_BankCode"));
+        model.addAttribute("vnp_PayDate",request.getAttribute("vnp_PayDate"));
+        model.addAttribute("vnp_TransactionStatus",request.getAttribute("vnp_TransactionStatus"));
+        return "vnpay_result";
     }
 
 }

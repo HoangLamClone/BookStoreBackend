@@ -6,6 +6,3 @@ spring:
     url: jdbc:postgresql://localhost:5432/BookStore3
     username: postgres
     password: 21062004
-
-
-

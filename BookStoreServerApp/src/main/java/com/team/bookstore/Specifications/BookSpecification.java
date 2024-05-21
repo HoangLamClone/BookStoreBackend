@@ -11,7 +11,7 @@ import org.antlr.v4.runtime.misc.NotNull;
 import org.springframework.data.jpa.domain.Specification;
 
 public class BookSpecification {
-    public static Specification<Book> GenerateBookKeywordSpec(@NotNull String keyword){
+    public static Specification<Book> GenerateBookKeywordSpec(String keyword){
         return new Specification<Book>() {
             @Override
             public Predicate toPredicate(Root<Book> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
@@ -33,7 +33,7 @@ public class BookSpecification {
             }
         };
     }
-    public static Specification<Book> GenerateEBookKeywordSpec(@NotNull String keyword){
+    public static Specification<Book> GenerateEBookKeywordSpec(String keyword){
         return new Specification<Book>() {
             @Override
             public Predicate toPredicate(Root<Book> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
