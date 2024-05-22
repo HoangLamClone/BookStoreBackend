@@ -90,7 +90,10 @@ public interface BookMapper {
     }
     @Mapping(target = "createAt",ignore = true)
     Book toBook(Book Other);
-    @Mapping(target = "authors",source = "book_author",qualifiedByName = "toAuthor")
+    @Mapping(target = "authors",source = "book_author",qualifiedByName =
+            "toAuthor")
+    @Mapping(target = "categoryId",source = "category",qualifiedByName =
+            "toCategoryId")
     BookResponse toBookResponse(Book book);
     @Named("toAuthor")
     default Set<Author> toAuthor(Set<Book_Author> book_author){
@@ -100,4 +103,9 @@ public interface BookMapper {
         });
         return authors;
     }
+    @Named("toCategoryId")
+    default int toCategoryId(Category category){
+        return category.getId();
+    }
+
 }
