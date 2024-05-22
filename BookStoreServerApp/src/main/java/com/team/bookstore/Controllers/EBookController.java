@@ -24,7 +24,7 @@ public class EBookController {
         return ResponseEntity.ok(APIResponse.builder().code(200).message("OK").result(eBookService.findEBookByKeyword(keyword)).build());
     }
     @SecurityRequirement(name = "bearerAuth")
-    @GetMapping("/free-read")
+    @GetMapping("/read")
     public ResponseEntity<APIResponse<?>> readEbook(@RequestParam int book_id){
         return ResponseEntity.ok(APIResponse.builder().code(200).message("OK").result(eBookService.readEBook(book_id)).build());
     }
