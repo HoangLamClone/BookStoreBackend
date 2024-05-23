@@ -96,7 +96,6 @@ public interface BookMapper {
             "toAuthor")
     @Mapping(target = "categoryId",source = "category",qualifiedByName =
             "toCategoryId")
-    @Mapping(target = "feedback",ignore = true)
     BookResponse toBookResponse(Book book);
     @Named("toAuthor")
     default Set<Author> toAuthor(Set<Book_Author> book_author){
