@@ -20,7 +20,6 @@ public class FeedbackResponse {
     int rating;
     int customer_id;
     String fullname;
-    Book book;
     Date createAt;
     Date updateAt;
     String createBy;
