@@ -70,6 +70,7 @@ public class BookService {
                 return existGalleryManage;
             }).collect(Collectors.toSet());
             book.setGalleryManage(newGalleries);
+            book.setReadingsession(0);
             Book savedBook = Create_Book_Author_Relation_And_Save(book,false);
             return bookMapper.toBookResponse(savedBook);
         }catch(Exception e){
