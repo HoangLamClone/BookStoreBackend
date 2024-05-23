@@ -126,8 +126,8 @@ public class CustomerController {
         CustomerInformation customerInformation = new CustomerInformation();
         customerInformation.setId(user_id);
         customerInformation.setFullname(customerRegisterRequest.getFullname());
-        customerInformation.setEmail(customerInformation.getEmail());
-        customerInformation.setPhonenumber(customerInformation.getPhonenumber());
+        customerInformation.setEmail(customerRegisterRequest.getEmail());
+        customerInformation.setPhonenumber(customerRegisterRequest.getPhonenumber());
         CustomerInformationResponse result = userMapper.toCustomerInformationResponse(customerInformationRepository.save(customerInformation));
         return ResponseEntity.ok(APIResponse.builder().code(200).message("OK").result(result).build());
     }
