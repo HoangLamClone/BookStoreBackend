@@ -21,6 +21,6 @@ public class Chapter extends Auditable{
     int bookId;
     byte[] sourcefile;
     @ManyToOne()
-    @JoinColumn(name = "book_id")
+    @JoinColumn(name = "book_id",insertable = false,updatable = false)
     Book book;
 }

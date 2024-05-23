@@ -33,7 +33,7 @@ public class ChapterController {
         return ResponseEntity.ok(APIResponse.builder().code(200).message(
                 "OK").result(ressult).build());
     }
-    @PatchMapping("/update}")
+    @PatchMapping("/update")
     public ResponseEntity<APIResponse<?>> updateChapter(@RequestParam int book_id,
             @RequestPart MultipartFile file, @RequestPart ChapterRequest chapterRequest){
         ChapterResponse ressult = chapterService.updateChapter(book_id,file,
