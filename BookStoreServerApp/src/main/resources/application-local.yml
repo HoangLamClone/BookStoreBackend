@@ -6,3 +6,24 @@ spring:
     url: jdbc:postgresql://localhost:5432/BookStore3
     username: postgres
     password: 21062004
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: bookstoreservice2004@gmail.com
+    password: ananhhuynhhan
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 972860833725-20q0jm89sc58a0jrsl22n91ink01g2ta.apps.googleusercontent.com
+            client-secret: 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
+define googlecre:
+  clientId: 972860833725-20q0jm89sc58a0jrsl22n91ink01g2ta.apps.googleusercontent.com
+  clientSecert: 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

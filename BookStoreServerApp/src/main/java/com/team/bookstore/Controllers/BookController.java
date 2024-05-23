@@ -24,9 +24,9 @@ public class BookController {
     BookMapper bookMapper;
     @SecurityRequirement(name = "bearerAuth")
     @PostMapping("/add")
-    public ResponseEntity<APIResponse<?>> createABook(@RequestPart MultipartFile sourceFile, @RequestPart BookRequest bookRequest){
+    public ResponseEntity<APIResponse<?>> createABook(@RequestBody BookRequest bookRequest){
         BookResponse result =
-                bookService.addBook(sourceFile,bookMapper.toBook(bookRequest));
+                bookService.addBook(bookMapper.toBook(bookRequest));
         return ResponseEntity.ok().body(APIResponse.builder().code(200).message("OK").result(result).build());
     }
     @GetMapping("/all")
@@ -36,9 +36,8 @@ public class BookController {
     @SecurityRequirement(name = "bearerAuth")
     @PutMapping("/update/{id}")
     public ResponseEntity<APIResponse<?>> updateABook(@PathVariable int id,
-                                                      @RequestPart MultipartFile sourceFile,
-                                                      @RequestPart BookRequest updateContent){
-        BookResponse result = bookService.updateABook(id,sourceFile,
+                                                      @RequestBody BookRequest updateContent){
+        BookResponse result = bookService.updateABook(id,
                 bookMapper.toBook(updateContent));
         return ResponseEntity.ok().body(APIResponse.builder().code(200).message("OK").result(result).build());
     }

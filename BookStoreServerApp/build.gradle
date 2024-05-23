@@ -47,6 +47,8 @@ dependencies {
     implementation group: 'org.springdoc', name: 'springdoc-openapi-starter-webmvc-ui', version: '2.5.0'
     //thymleaf
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-thymeleaf', version: '3.2.5'
+    // https://mvnrepository.com/artifact/com.twilio.sdk/twilio
+    implementation group: 'com.twilio.sdk', name: 'twilio', version: '10.1.5'
+
 
 }
-

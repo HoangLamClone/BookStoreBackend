@@ -33,11 +33,4 @@ public class EBookController {
     public ResponseEntity<APIResponse<?>> getMyPurchaseBook(){
         return ResponseEntity.ok(APIResponse.builder().code(200).message("OK").result(eBookService.getMyPurchasedEBooks()).build());
     }
-
-    @PatchMapping("/readingprocess")
-    public ResponseEntity<APIResponse<?>> updateReadingProcess(@RequestParam int book_id,@RequestBody int readingprocess){
-        return ResponseEntity.ok(APIResponse.builder().code(200).message("OK").result(customerBookService.updateReadingProcess(book_id,readingprocess)).build());
-    }
-
-
 }

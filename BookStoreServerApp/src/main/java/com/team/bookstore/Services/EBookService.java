@@ -1,6 +1,7 @@
 package com.team.bookstore.Services;
 
 import com.team.bookstore.Dtos.Responses.BookResponse;
+import com.team.bookstore.Dtos.Responses.ChapterResponse;
 import com.team.bookstore.Entities.Book;
 import com.team.bookstore.Entities.ComposeKey.CustomerBookKey;
 import com.team.bookstore.Entities.CustomerInformation;
@@ -8,6 +9,7 @@ import com.team.bookstore.Entities.Customer_Book;
 import com.team.bookstore.Enums.ErrorCodes;
 import com.team.bookstore.Exceptions.ApplicationException;
 import com.team.bookstore.Mappers.BookMapper;
+import com.team.bookstore.Mappers.ChapterMapper;
 import com.team.bookstore.Repositories.BookRepository;
 import com.team.bookstore.Repositories.CustomerInformationRepository;
 import com.team.bookstore.Repositories.Customer_BookRepository;
@@ -39,6 +41,8 @@ public class EBookService {
     UserRepository userRepository;
     @Autowired
     Customer_BookRepository customerBookRepository;
+    @Autowired
+    ChapterMapper chapterMapper;
     public List<BookResponse> getAllEBook(){
         try{
             return bookRepository.findAllByIsebook(true).stream().map(bookMapper::toBookResponse).collect(Collectors.toList());
@@ -59,7 +63,7 @@ public class EBookService {
 
     }
     @Secured("ROLE_CUSTOMER")
-    public byte[] readEBook(int book_id){
+    public List<ChapterResponse> readEBook(int book_id){
         try{
             Authentication authentication =
                     SecurityContextHolder.getContext().getAuthentication();
@@ -77,7 +81,7 @@ public class EBookService {
             }
             if(book.getTotal_pay()==0){
                 increaseReadingSesion(book_id);
-                return book.getSourcefile();
+                return book.getChapter().stream().map(chapterMapper::toChapterResponse).collect(Collectors.toList());
 
             }
             CustomerBookKey customerBookKey = new CustomerBookKey();
@@ -88,7 +92,7 @@ public class EBookService {
                 throw new ApplicationException(ErrorCodes.UN_AUTHORISED);
             }
             increaseReadingSesion(book_id);
-            return book.getSourcefile();
+            return book.getChapter().stream().map(chapterMapper::toChapterResponse).collect(Collectors.toList());
         } catch (Exception e){
             log.info(e);
             throw new ApplicationException(ErrorCodes.UN_CATEGORIED);

@@ -8,13 +8,22 @@ import com.team.bookstore.Dtos.Responses.UserResponse;
 import com.team.bookstore.Mappers.UserMapper;
 import com.team.bookstore.Services.*;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import jakarta.validation.constraints.Email;
+import lombok.extern.java.Log;
+import lombok.extern.log4j.Log4j2;
 import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Lookup;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.function.EntityResponse;
 
+
+@Log4j2
 @RestController
 @RequestMapping("/customer")
 public class CustomerController {
@@ -32,6 +41,7 @@ public class CustomerController {
     BookService bookService;
     @GetMapping("/all")
     @SecurityRequirement(name = "bearerAuth")
+
     public ResponseEntity<APIResponse<?>> getAllCustomerInformation(){
         return ResponseEntity.ok(APIResponse.builder().code(200).message("OK").result(customerService.getAllCustomerInformation()).build());
     }

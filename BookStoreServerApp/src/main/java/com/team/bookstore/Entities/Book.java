@@ -36,7 +36,6 @@ public class Book extends Auditable{
     int available;
     Boolean isebook;
     Boolean isvip;
-    byte[] sourcefile;
     Integer readingsession;
     @JsonManagedReference("book")
     @OneToMany(mappedBy = "book",cascade = CascadeType.ALL,
@@ -71,4 +70,7 @@ public class Book extends Auditable{
     @OneToMany(mappedBy = "book",cascade = CascadeType.REMOVE,fetch =
             FetchType.EAGER)
     Set<Feedback> feedback = new HashSet<>();
+    @OneToMany(mappedBy = "book",cascade = CascadeType.REMOVE,fetch =
+            FetchType.EAGER)
+    Set<Chapter> chapter;
 }

@@ -36,6 +36,29 @@ public class Customer_BookService {
     BookRepository bookRepository;
     @Autowired
     UserRepository userRepository;
+    public int getReadingProcess(int book_id){
+        try{
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            if(authentication == null){
+                throw new ApplicationException(ErrorCodes.UN_AUTHENTICATED);
+            }
+            if(!bookRepository.existsById(book_id)){
+                throw new ApplicationException(ErrorCodes.OBJECT_NOT_EXIST);
+            }
+            int customerId =
+                    userRepository.findUsersByUsername(authentication.getName()).getId();
+            CustomerBookKey customerBookKey = new CustomerBookKey();
+            customerBookKey.setBook_id(book_id);
+            customerBookKey.setBook_id(book_id);
+            Customer_Book customer_book =
+                    customerBookRepository.findCustomer_BookById(customerBookKey);
+            return customer_book.getReadingprocess();
+
+        }catch (Exception e){
+            log.info(e);
+            throw new ApplicationException(ErrorCodes.NOT_FOUND);
+        }
+    }
 
     public int updateReadingProcess(int book_id,int process){
         try{
@@ -77,6 +100,7 @@ public class Customer_BookService {
                 Customer_Book customer_book = new Customer_Book();
                 customer_book.setBook(order_detail.getBook());
                 customer_book.setCustomer_information(customer);
+                customer_book.setReadingprocess(0);
                 if(!customerBookRepository.existsCustomer_BookById(new CustomerBookKey(customer_id,order_detail.getBook().getId()))) {
                     customer_books.add(customer_book);
                 }
