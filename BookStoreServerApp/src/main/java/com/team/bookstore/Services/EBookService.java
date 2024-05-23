@@ -23,8 +23,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import static com.team.bookstore.Specifications.BookSpecification.GenerateEBookKeywordSpec;
@@ -94,8 +96,9 @@ public class EBookService {
                 throw new ApplicationException(ErrorCodes.UN_AUTHORISED);
             }
             increaseReadingSesion(book_id);
-            return book.getChapter().stream()
-                    .sorted(Comparator.comparing(Chapter::getChapterIndex))
+            List<Chapter> chapters = new java.util.ArrayList<>(book.getChapter().stream().toList());
+            chapters.sort(Comparator.comparing(Chapter::getChapterIndex));
+            return chapters.stream()
                     .map(chapterMapper::toChapterResponse).collect(Collectors.toList());
         } catch (Exception e){
             log.info(e);
