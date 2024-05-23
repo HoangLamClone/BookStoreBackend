@@ -23,6 +23,7 @@ public class Feedback extends Auditable{
     @JsonBackReference("customer_information")
     @ManyToOne
     @JoinColumn(name = "customer_id")
+    @JsonIgnore
     CustomerInformation customer_information;
     @JsonBackReference("book")
     @ManyToOne

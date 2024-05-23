@@ -34,5 +34,7 @@ public class CustomerInformation extends Auditable{
     @JoinColumn(name = "customer_id")
     User user;
     @OneToMany(mappedBy = "customer_information",cascade = CascadeType.REMOVE)
+    @JsonIgnore
+
     Set<Feedback> feedback;
 }
