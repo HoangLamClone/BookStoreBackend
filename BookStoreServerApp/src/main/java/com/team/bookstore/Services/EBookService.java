@@ -2,19 +2,13 @@ package com.team.bookstore.Services;
 
 import com.team.bookstore.Dtos.Responses.BookResponse;
 import com.team.bookstore.Dtos.Responses.ChapterResponse;
-import com.team.bookstore.Entities.Book;
-import com.team.bookstore.Entities.Chapter;
+import com.team.bookstore.Entities.*;
 import com.team.bookstore.Entities.ComposeKey.CustomerBookKey;
-import com.team.bookstore.Entities.CustomerInformation;
-import com.team.bookstore.Entities.Customer_Book;
 import com.team.bookstore.Enums.ErrorCodes;
 import com.team.bookstore.Exceptions.ApplicationException;
 import com.team.bookstore.Mappers.BookMapper;
 import com.team.bookstore.Mappers.ChapterMapper;
-import com.team.bookstore.Repositories.BookRepository;
-import com.team.bookstore.Repositories.CustomerInformationRepository;
-import com.team.bookstore.Repositories.Customer_BookRepository;
-import com.team.bookstore.Repositories.UserRepository;
+import com.team.bookstore.Repositories.*;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
@@ -47,6 +41,8 @@ public class EBookService {
     Customer_BookRepository customerBookRepository;
     @Autowired
     ChapterMapper chapterMapper;
+    @Autowired
+    CategoryRepository categoryRepository;
     public List<BookResponse> getAllEBook(){
         try{
             return bookRepository.findAllByIsebook(true).stream().map(bookMapper::toBookResponse).collect(Collectors.toList());
@@ -130,6 +126,20 @@ public class EBookService {
             Specification<Book> spec = GenerateEBookKeywordSpec(keyword);
             return bookRepository.findAll(spec).stream().map(bookMapper::toBookResponse).collect(Collectors.toList());
         }catch (Exception e){
+            log.info(e);
+            throw new ApplicationException(ErrorCodes.NOT_FOUND);
+        }
+    }
+    public List<BookResponse> getEBooksOfCategory(int category_id){
+        try{
+            if(!categoryRepository.existsById(category_id)){
+                throw new ApplicationException(ErrorCodes.OBJECT_NOT_EXIST);
+            }
+            Category existCategory =
+                    categoryRepository.findCategoryById(category_id);
+            return bookRepository.findBooksByCategoryAndIsebook(existCategory
+                    ,true).stream().map(bookMapper::toBookResponse).collect(Collectors.toList());
+        } catch (Exception e){
             log.info(e);
             throw new ApplicationException(ErrorCodes.NOT_FOUND);
         }
