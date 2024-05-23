@@ -16,15 +16,10 @@ public class CustomerInformationRequest {
     @Size(max = 100)
     String fullname;
     @Email
-    @NotNull
     String email;
-    @NotNull
     Boolean gender;
-    @NotNull
     Date birthday;
-    @NotNull
     @Digits(integer = 10,fraction = 0)
     String phonenumber;
-    @NotNull
     String address;
 }
