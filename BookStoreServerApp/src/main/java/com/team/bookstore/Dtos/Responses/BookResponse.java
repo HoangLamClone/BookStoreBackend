@@ -41,5 +41,4 @@ public class BookResponse {
     Language language;
     Set<GalleryManage> galleryManage;
     Provider provider;
-    Set<FeedbackResponse> feedback;
 }

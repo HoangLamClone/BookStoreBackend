@@ -68,8 +68,7 @@ public class Book extends Auditable{
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "category_id")
     Category category;
-    @OneToMany(mappedBy = "book",cascade = CascadeType.REMOVE,fetch =
-            FetchType.EAGER)
+    @OneToMany(mappedBy = "book")
     Set<Feedback> feedback = new HashSet<>();
     @OneToMany(mappedBy = "book",cascade = CascadeType.REMOVE,fetch =
             FetchType.EAGER)
