@@ -4,6 +4,7 @@ import com.sun.source.tree.CaseTree;
 import com.team.bookstore.Dtos.Requests.BookRequest;
 import com.team.bookstore.Dtos.Responses.BookResponse;
 import com.team.bookstore.Dtos.Responses.CategoryResponse;
+import com.team.bookstore.Dtos.Responses.FeedbackResponse;
 import com.team.bookstore.Entities.*;
 import jdk.jfr.Name;
 import lombok.extern.log4j.Log4j2;
@@ -95,6 +96,8 @@ public interface BookMapper {
             "toAuthor")
     @Mapping(target = "categoryId",source = "category",qualifiedByName =
             "toCategoryId")
+    @Mapping(target = "feedback",source = "feedback",qualifiedByName =
+            "toFBResponse")
     BookResponse toBookResponse(Book book);
     @Named("toAuthor")
     default Set<Author> toAuthor(Set<Book_Author> book_author){
@@ -108,5 +111,13 @@ public interface BookMapper {
     default int toCategoryId(Category category){
         return category.getId();
     }
-
+    @Named("toFBResponse")
+    default FeedbackResponse toFBResponse(Feedback feedback){
+        FeedbackResponse fbr = new FeedbackResponse();
+        fbr.setId(feedback.getId());
+        fbr.setFullname(feedback.getCustomer_information().getFullname());
+        fbr.setRating(feedback.getRating());
+        fbr.setFeedback_comment(feedback.getFeedback_comment());
+        return fbr;
+    }
 }
