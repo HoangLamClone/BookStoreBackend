@@ -3,6 +3,7 @@ package com.team.bookstore.Services;
 import com.team.bookstore.Dtos.Responses.BookResponse;
 import com.team.bookstore.Dtos.Responses.ChapterResponse;
 import com.team.bookstore.Entities.Book;
+import com.team.bookstore.Entities.Chapter;
 import com.team.bookstore.Entities.ComposeKey.CustomerBookKey;
 import com.team.bookstore.Entities.CustomerInformation;
 import com.team.bookstore.Entities.Customer_Book;
@@ -22,6 +23,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -92,7 +94,9 @@ public class EBookService {
                 throw new ApplicationException(ErrorCodes.UN_AUTHORISED);
             }
             increaseReadingSesion(book_id);
-            return book.getChapter().stream().map(chapterMapper::toChapterResponse).collect(Collectors.toList());
+            return book.getChapter().stream()
+                    .sorted(Comparator.comparing(Chapter::getChapterIndex))
+                    .map(chapterMapper::toChapterResponse).collect(Collectors.toList());
         } catch (Exception e){
             log.info(e);
             throw new ApplicationException(ErrorCodes.UN_CATEGORIED);
