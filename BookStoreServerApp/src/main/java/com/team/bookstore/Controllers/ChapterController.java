@@ -52,14 +52,14 @@ public class ChapterController {
                 "OK").result(chapterService.deleteChapter(book_id)).build());
     }
     @SecurityRequirement(name = "bearerAuth")
-    @PatchMapping("/update-reading-chaper")
+    @PatchMapping("/update-reading-chapter")
     public ResponseEntity<APIResponse<?>> updateReadingChaper(@RequestParam int book_id,@RequestParam int chapter_index){
         return ResponseEntity.ok(APIResponse.builder().code(200).message(
                 "OK").result(customerBookService.updateReadingProcess(book_id
                 ,chapter_index)).build());
     }
     @SecurityRequirement(name = "bearerAuth")
-    @GetMapping("/get-reading-chaper")
+    @GetMapping("/get-reading-chapter")
     public ResponseEntity<APIResponse<?>> getReadingChapter(@RequestParam int book_id){
         return ResponseEntity.ok(APIResponse.builder().code(200).message("OK").result(customerBookService.getReadingProcess(book_id)).build());
     }

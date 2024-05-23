@@ -114,7 +114,7 @@ public class CustomerController {
                         userMapper.toCustomerInformation(customerInformationRequest));
         return ResponseEntity.ok(APIResponse.builder().code(200).message("OK").result(result).build());
     }
-    @PostMapping("mobile-register")
+    @PostMapping("/mobile-register")
     public ResponseEntity<APIResponse<?>> customerRegister(@RequestBody CustomerRegisterRequest customerRegisterRequest){
         if(!Objects.equals(customerRegisterRequest.getPassword(), customerRegisterRequest.getRepassword())){{
             throw new ApplicationException(ErrorCodes.INVALID_OBJECT);

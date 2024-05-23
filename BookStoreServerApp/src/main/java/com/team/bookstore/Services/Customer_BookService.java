@@ -49,7 +49,7 @@ public class Customer_BookService {
                     userRepository.findUsersByUsername(authentication.getName()).getId();
             CustomerBookKey customerBookKey = new CustomerBookKey();
             customerBookKey.setBook_id(book_id);
-            customerBookKey.setBook_id(book_id);
+            customerBookKey.setCustomer_id(customerId);
             Customer_Book customer_book =
                     customerBookRepository.findCustomer_BookById(customerBookKey);
             return customer_book.getReadingprocess();
