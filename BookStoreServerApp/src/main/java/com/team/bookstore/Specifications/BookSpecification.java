@@ -27,8 +27,8 @@ public class BookSpecification {
                                 likeKeyword.toLowerCase()),
                         criteriaBuilder.like(criteriaBuilder.lower(root.get(
                                 "description")),
-                                likeKeyword.toLowerCase()),
-                        criteriaBuilder.equal(root.get("isebook").as(String.class),"false"))
+                                likeKeyword.toLowerCase())),
+                        criteriaBuilder.equal(root.get("isebook").as(String.class),"false")
                 );
             }
         };
@@ -41,16 +41,15 @@ public class BookSpecification {
                     return criteriaBuilder.conjunction();
                 }
                 String likeKeyword = "%" + keyword.toLowerCase() + "%";
-                return criteriaBuilder.and(criteriaBuilder.or(
-                        criteriaBuilder.like(root.get("id").as(String.class)
-                                , likeKeyword.toLowerCase()),
-                        criteriaBuilder.like(criteriaBuilder.lower(root.get(
+                return criteriaBuilder.and(
+                        criteriaBuilder.or(
+                            criteriaBuilder.like(criteriaBuilder.lower(root.get(
                                         "title")),
                                 likeKeyword.toLowerCase()),
-                        criteriaBuilder.like(criteriaBuilder.lower(root.get(
+                            criteriaBuilder.like(criteriaBuilder.lower(root.get(
                                         "description")),
-                                likeKeyword.toLowerCase()),
-                        criteriaBuilder.equal(root.get("isebook").as(String.class),"true"))
+                                likeKeyword.toLowerCase())),
+                        criteriaBuilder.equal(root.get("isebook").as(String.class),"true")
                 );
             }
         };
