@@ -76,7 +76,7 @@ public class AuthenticationService {
                 .issuer("com.authentication")
                 .issueTime(new Date())
                 .expirationTime(new Date(
-                        Instant.now().plus(1, ChronoUnit.HOURS).toEpochMilli()))
+                        Instant.now().plus(5, ChronoUnit.HOURS).toEpochMilli()))
                 .claim("scope",CreateScope(user))
                 .build();
         Payload   payload   = new Payload(jwtClaimsSet.toJSONObject());
