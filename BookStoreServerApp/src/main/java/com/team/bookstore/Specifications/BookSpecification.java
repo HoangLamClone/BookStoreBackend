@@ -42,16 +42,12 @@ public class BookSpecification {
                 }
                 String likeKeyword = "%" + keyword.toLowerCase() + "%";
                 return criteriaBuilder.and(
-                        criteriaBuilder.or(
-                            criteriaBuilder.like(criteriaBuilder.lower(root.get(
-                                        "title")),
-                                likeKeyword.toLowerCase()),
-                            criteriaBuilder.like(criteriaBuilder.lower(root.get(
-                                        "description")),
-                                likeKeyword.toLowerCase())),
+                        criteriaBuilder.like(criteriaBuilder.lower(root.get(
+                                "title")),likeKeyword),
                         criteriaBuilder.equal(root.get("isebook").as(String.class),"true")
                 );
             }
         };
     }
 }
+gi
