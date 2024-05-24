@@ -15,4 +15,6 @@ public interface BookRepository extends JpaRepository<Book,Integer> {
     List<Book> findAll(Specification<Book> spec);
     List<Book> findBooksByCategoryAndIsebook(Category category,
                                               boolean isebook);
+    List<Book> findBooksByDiscountNotAndIsebook(int notlikediscount,
+                                                boolean isebook);
 }

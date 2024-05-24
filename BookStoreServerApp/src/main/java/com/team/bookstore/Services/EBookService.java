@@ -144,4 +144,12 @@ public class EBookService {
             throw new ApplicationException(ErrorCodes.NOT_FOUND);
         }
     }
+    public List<BookResponse> getAllDiscountBook(){
+        try{
+            return bookRepository.findBooksByDiscountNotAndIsebook(0,true).stream().map(bookMapper::toBookResponse).collect(Collectors.toList());
+        }catch(Exception e){
+            log.info(e);
+            throw new ApplicationException(ErrorCodes.NOT_FOUND);
+        }
+    }
 }

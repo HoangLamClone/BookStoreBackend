@@ -37,4 +37,9 @@ public class EBookController {
     public ResponseEntity<APIResponse<?>> getAllEBooksOfCategory(@RequestParam int category_id){
         return ResponseEntity.ok(APIResponse.builder().code(200).message("OK").result(eBookService.getEBooksOfCategory(category_id)).build());
     }
+
+    @GetMapping("/discount")
+    public ResponseEntity<APIResponse<?>> getAllDiscountEbook(){
+        return ResponseEntity.ok(APIResponse.builder().code(200).message("OK").result(eBookService.getAllDiscountBook()).build());
+    }
 }
